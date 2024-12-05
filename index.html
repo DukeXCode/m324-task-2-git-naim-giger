@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>M324 - Git</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
   </head>
   <body>
-    <main>
-        <h1>M324</h1>
-	<p>Some changes...</p>
-    </main>
-    <script src="index.js"></script>
+    <div id="content" class="content markdown-body"></div>
+    <script>
+        async function loadMarkdown() {
+            try {
+                const response = await fetch('README.md');
+                const text = await response.text();
+                
+                document.getElementById('content').innerHTML = marked.parse(text);
+            } catch (error) {
+                console.error('Error loading markdown:', error);
+                document.getElementById('content').innerHTML = 'Error loading markdown content.';
+            }
+        }
+
+        loadMarkdown();
+    </script>
   </body>
 </html>
 
